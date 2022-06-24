@@ -4,11 +4,13 @@ class QueueNumberDTO {
   final String? hcNumber;
   final String? name;
   final DateTime date;
+  final DateTime? dateCalled;
   final VisitPurpose visitPurpose;
 
   QueueNumberDTO({
     this.hcNumber,
     this.name,
+    this.dateCalled,
     required this.visitPurpose,
     required this.date,
   });
@@ -24,10 +26,11 @@ class QueueNumberDTO {
 
   factory QueueNumberDTO.fromMap(Map<String, dynamic> map) {
     return QueueNumberDTO(
-        visitPurpose: map["visit_purpose"],
+        visitPurpose: map["visit_purpose"].toString().toVisitPurpose(),
         date: map["date"].toDate(),
-        name: map["name"],
-        hcNumber: map["hc_number"]);
+        name: map["name"] == "" ? null : map["name"],
+        hcNumber: map["hc_number"] == "" ? null : map["hc_number"],
+        dateCalled: map["date_called"]);
   }
 
   copy({String? hcNumber, String? name, VisitPurpose? visitPurpose, DateTime? date}) {

@@ -1,4 +1,5 @@
 import 'package:eaki_admin/firebase_options.dart';
+import 'package:eaki_admin/view/pages/queue_control_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +18,7 @@ class EakiAdminMainWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Eaki Admin',
       theme: ThemeData(
         primaryColor: const Color(0xff0E4DA4),
         errorColor: const Color(0xffE74C3C),
@@ -26,6 +27,11 @@ class EakiAdminMainWidget extends StatelessWidget {
         textTheme: const TextTheme(
           headline1: TextStyle(
             fontSize: 72.0,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff263238),
+          ),
+          headline3: TextStyle(
+            fontSize: 48.0,
             fontWeight: FontWeight.bold,
             color: Color(0xff263238),
           ),
@@ -62,7 +68,7 @@ class EakiAdminMainWidget extends StatelessWidget {
           ),
         ),
       ),
-      home: const Center(child: Text("")),
+      home: const QueueControlPage(),
     );
   }
 }
