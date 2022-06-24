@@ -16,6 +16,7 @@ class QueueNumberVM {
       return null;
     }
     final dateCalledList = list.where((number) => number.dateCalled != null).toList();
+    if (dateCalledList.isEmpty) return null;
     dateCalledList.sort((a, b) => a.dateCalled!.compareTo(b.dateCalled!));
     return dateCalledList.last;
   }
@@ -29,8 +30,11 @@ class QueueNumberVM {
   }
 
   void callNextQueueNumber(List<QueueNumber> list) {
-    final nextQueueNumber = list.where((number) => number.dateCalled == null).first;
-    ref.read(queueNumberRepository).callQueueNumber(nextQueueNumber);
+    final remaining = getQueueNumberRemaining(list);
+    if (remaining.isNotEmpty) {
+      final nextQueueNumber = remaining.first;
+      ref.read(queueNumberRepository).callQueueNumber(nextQueueNumber);
+    }
   }
 
   void recallQueueNumber(QueueNumber queueNumber) {
