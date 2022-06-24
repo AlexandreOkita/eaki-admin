@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CurrentQueueNumber extends ConsumerWidget {
-  final int currentQueueNumber;
+  final int? currentQueueNumber;
   const CurrentQueueNumber({required this.currentQueueNumber, Key? key}) : super(key: key);
 
   @override
@@ -13,7 +13,7 @@ class CurrentQueueNumber extends ConsumerWidget {
       children: [
         Text("Senha atual:", style: textTheme.headline3),
         const SizedBox(width: 20),
-        Text(currentQueueNumber.toString(), style: textTheme.headline3),
+        Text(currentQueueNumber?.toString() ?? "", style: textTheme.headline3),
       ],
     );
   }

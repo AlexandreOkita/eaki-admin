@@ -1,4 +1,3 @@
-import 'package:eaki_admin/models/entities/queue_number.dart';
 import 'package:eaki_admin/providers/queue_number_provider.dart';
 import 'package:eaki_admin/view/components/current_queue_number.dart';
 import 'package:eaki_admin/view/components/eaki_admin_scaffold.dart';
@@ -16,7 +15,7 @@ class QueueControlPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     return ref.watch(queueNumbersProvider).when(
-          loading: () => const CircularProgressIndicator(),
+          loading: () => const Center(child: CircularProgressIndicator()),
           error: (e, st) => Scaffold(
             body: Center(child: Text("$e\n\n$st")),
           ),
@@ -40,7 +39,7 @@ class QueueControlPage extends ConsumerWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CurrentQueueNumber(
-                                  currentQueueNumber: currentQueueNumber.number,
+                                  currentQueueNumber: currentQueueNumber?.number,
                                 ),
                                 QueueNumberInfo(
                                   currentQueueNumber: currentQueueNumber,

@@ -11,7 +11,10 @@ class QueueNumberVM {
 
   QueueNumberVM(this.ref);
 
-  QueueNumber getCurrentQueueNumber(List<QueueNumber> list) {
+  QueueNumber? getCurrentQueueNumber(List<QueueNumber> list) {
+    if (list.isEmpty) {
+      return null;
+    }
     final dateCalledList = list.where((number) => number.dateCalled != null).toList();
     dateCalledList.sort((a, b) => a.dateCalled!.compareTo(b.dateCalled!));
     return dateCalledList.last;

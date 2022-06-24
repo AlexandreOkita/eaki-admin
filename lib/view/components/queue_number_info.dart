@@ -3,17 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class QueueNumberInfo extends ConsumerWidget {
-  final QueueNumber currentQueueNumber;
+  final QueueNumber? currentQueueNumber;
   const QueueNumberInfo({required this.currentQueueNumber, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
+    return
+    Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        QueueNumberAtomicInfo(data: currentQueueNumber.hcNumber ?? "-", info: "HC"),
-        QueueNumberAtomicInfo(data: currentQueueNumber.name ?? "-", info: "Nome"),
-        QueueNumberAtomicInfo(data: currentQueueNumber.visitPurpose.name.toUpperCase(), info: "Tipo"),
+        QueueNumberAtomicInfo(data: currentQueueNumber?.hcNumber ?? "-", info: "HC"),
+        QueueNumberAtomicInfo(data: currentQueueNumber?.name ?? "-", info: "Nome"),
+        QueueNumberAtomicInfo(data: currentQueueNumber?.visitPurpose.name.toUpperCase() ?? "-", info: "Tipo"),
       ],
     );
   }
