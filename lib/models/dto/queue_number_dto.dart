@@ -30,7 +30,7 @@ class QueueNumberDTO {
         date: map["date"].toDate(),
         name: map["name"] == "" ? null : map["name"],
         hcNumber: map["hc_number"] == "" ? null : map["hc_number"],
-        dateCalled: map["date_called"]);
+        dateCalled: map["date_called"] == null ? null : map["date_called"].toDate());
   }
 
   copy({String? hcNumber, String? name, VisitPurpose? visitPurpose, DateTime? date}) {

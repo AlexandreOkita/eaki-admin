@@ -5,6 +5,7 @@ import 'package:eaki_admin/view/components/eaki_admin_scaffold.dart';
 import 'package:eaki_admin/view/components/next_queue_button.dart';
 import 'package:eaki_admin/view/components/queue_number_historic.dart';
 import 'package:eaki_admin/view/components/queue_number_info.dart';
+import 'package:eaki_admin/viewmodel/queue_number_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,7 +21,8 @@ class QueueControlPage extends ConsumerWidget {
             body: Center(child: Text("$e\n\n$st")),
           ),
           data: (data) {
-            print(data);
+            final currentQueueNumber = ref.read(queueNumberVM).getCurrentQueueNumber(data);
+            final remainingQueueNumbers = ref.read(queueNumberVM).getQueueNumberRemaining(data);
             return EakiAdminScaffold(
               title: "Controle da Fila",
               body: Column(
@@ -37,22 +39,22 @@ class QueueControlPage extends ConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const CurrentQueueNumber(
-                                  currentQueueNumber: 45,
+                                CurrentQueueNumber(
+                                  currentQueueNumber: currentQueueNumber.number,
                                 ),
                                 QueueNumberInfo(
-                                  currentQueueNumber: QueueNumber(
-                                    date: DateTime.now(),
-                                    visitPurpose: VisitPurpose.appointment,
-                                    number: 23,
-                                    id: "ads1231",
-                                    dateCalled: null,
-                                  ),
+                                  currentQueueNumber: currentQueueNumber,
                                 ),
                               ],
                             ),
                           ),
-                          const Expanded(child: Center(child: NextQueueButton()))
+                          Expanded(
+                              child: Center(
+                                  child: NextQueueButton(
+                            onPressed: remainingQueueNumbers.isEmpty
+                                ? null
+                                : () => ref.read(queueNumberVM).callNextQueueNumber(data),
+                          )))
                         ],
                       ),
                     ),
@@ -73,7 +75,9 @@ class QueueControlPage extends ConsumerWidget {
                     flex: 5,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: QueueNumberHistoric(queueNumberList: data),
+                      child: QueueNumberHistoric(
+                        queueNumberList: ref.read(queueNumberVM).getQueueNumberHistoric(data),
+                      ),
                     ),
                   )
                 ],

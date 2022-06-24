@@ -1,4 +1,5 @@
 import 'package:eaki_admin/models/entities/queue_number.dart';
+import 'package:eaki_admin/viewmodel/queue_number_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +10,7 @@ class QueueNumberHistoric extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final reversedQueueNumberList = queueNumberList.reversed.toList();
     return ListView.separated(
         itemBuilder: ((context, index) => Container(
               color: theme.primaryColor.withOpacity(0.25),
@@ -17,23 +19,24 @@ class QueueNumberHistoric extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    queueNumberList[index].hcNumber ?? "-",
+                    reversedQueueNumberList[index].hcNumber ?? "-",
                     style: theme.textTheme.bodyText1,
                   ),
                   Text(
-                    queueNumberList[index].name ?? "-",
+                    reversedQueueNumberList[index].name ?? "-",
                     style: theme.textTheme.bodyText1,
                   ),
                   Text(
-                    queueNumberList[index].number.toString(),
+                    reversedQueueNumberList[index].number.toString(),
                     style: theme.textTheme.bodyText1,
                   ),
                   Text(
-                    queueNumberList[index].visitPurpose.name.toUpperCase(),
+                    reversedQueueNumberList[index].visitPurpose.name.toUpperCase(),
                     style: theme.textTheme.bodyText1,
                   ),
                   ElevatedButton(
-                      onPressed: null,
+                      onPressed: () =>
+                          ref.read(queueNumberVM).recallQueueNumber(reversedQueueNumberList[index]),
                       child: Text(
                         "Rechamar",
                         style: theme.textTheme.button,

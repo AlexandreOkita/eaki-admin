@@ -37,4 +37,9 @@ class QueueNumberRepository {
         )
         .toList());
   }
+
+  callQueueNumber(QueueNumber queueNumber) {
+    final collection = db.collection("queue_numbers");
+    collection.doc(queueNumber.id).update({"date_called": DateTime.now()});
+  }
 }
