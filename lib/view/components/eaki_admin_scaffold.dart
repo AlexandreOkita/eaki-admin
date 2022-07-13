@@ -11,15 +11,10 @@ class EakiAdminScaffold extends ConsumerWidget {
     final theme = Theme.of(context);
     final screen = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        backgroundColor: theme.primaryColor,
-      ),
-      body: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: screen.width * 0.1, vertical: screen.height * 0.05),
-        child: body,
-      ),
-    );
+        appBar: AppBar(
+          title: Text(title),
+          backgroundColor: theme.primaryColor,
+        ),
+        body: body);
   }
 }

@@ -1,3 +1,10 @@
+import 'package:eaki_admin/view/components/current_queue.dart';
+import 'package:eaki_admin/view/components/queue_history_pair_button.dart';
+import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:eaki_admin/models/entities/queue_number.dart';
 import 'package:eaki_admin/providers/queue_number_provider.dart';
 import 'package:eaki_admin/view/components/current_queue_number.dart';
 import 'package:eaki_admin/view/components/eaki_admin_scaffold.dart';
@@ -5,11 +12,107 @@ import 'package:eaki_admin/view/components/next_queue_button.dart';
 import 'package:eaki_admin/view/components/queue_number_historic.dart';
 import 'package:eaki_admin/view/components/queue_number_info.dart';
 import 'package:eaki_admin/viewmodel/queue_number_vm.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QueueControlPage extends ConsumerWidget {
+class QueueControlPage extends ConsumerStatefulWidget {
   const QueueControlPage({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _QueueControlPageState();
+}
+
+class _QueueControlPageState extends ConsumerState<QueueControlPage> {
+  PageController page = PageController();
+
+  @override
+  Widget build(BuildContext context) {
+    final List<SideMenuItem> items = [
+      SideMenuItem(
+          onTap: () {
+            page.jumpToPage(0);
+          },
+          title: "Todas as Senhas",
+          icon: const Icon(Icons.all_inbox),
+          priority: 0),
+      SideMenuItem(
+          onTap: () {
+            page.jumpToPage(1);
+          },
+          title: "Consulta Agendada",
+          icon: const Icon(Icons.all_inbox),
+          priority: 1),
+      SideMenuItem(
+          onTap: () {
+            page.jumpToPage(2);
+          },
+          title: "Consulta de Retorno",
+          icon: const Icon(Icons.all_inbox),
+          priority: 2),
+      SideMenuItem(
+          onTap: () {
+            page.jumpToPage(3);
+          },
+          title: "Encaixe com Email",
+          icon: const Icon(Icons.all_inbox),
+          priority: 3),
+      SideMenuItem(
+          onTap: () {
+            page.jumpToPage(4);
+          },
+          title: "Procedimento",
+          icon: const Icon(Icons.all_inbox),
+          priority: 4),
+      SideMenuItem(
+          onTap: () {
+            page.jumpToPage(5);
+          },
+          title: "Senhas Chamadas",
+          icon: const Icon(Icons.all_inbox),
+          priority: 5),
+    ];
+
+    return EakiAdminScaffold(
+        title: "Controle da Fila",
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Row(
+            children: [
+              SideMenu(
+                items: items,
+                style: SideMenuStyle(
+                  displayMode: SideMenuDisplayMode.auto,
+                  hoverColor: Colors.blue[100],
+                  selectedColor: Theme.of(context).primaryColor,
+                  selectedTitleTextStyle: const TextStyle(color: Colors.white),
+                  selectedIconColor: Colors.white,
+                ),
+                controller: page,
+              ),
+              const VerticalDivider(),
+              Expanded(
+                  child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: page,
+                children: [
+                  QueueControlScreen(filterFunction: (q) => true),
+                  QueueControlScreen(
+                      filterFunction: (q) => q.visitPurpose == VisitPurpose.appointment),
+                  QueueControlScreen(
+                      filterFunction: (q) => q.visitPurpose == VisitPurpose.procedure),
+                ],
+              ))
+            ],
+          ),
+        ));
+  }
+}
+
+class QueueControlScreen extends ConsumerWidget {
+  bool Function(QueueNumber) filterFunction;
+
+  QueueControlScreen({
+    Key? key,
+    required this.filterFunction,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,14 +125,16 @@ class QueueControlPage extends ConsumerWidget {
           data: (data) {
             final currentQueueNumber = ref.read(queueNumberVM).getCurrentQueueNumber(data);
             final remainingQueueNumbers = ref.read(queueNumberVM).getQueueNumberRemaining(data);
-            return EakiAdminScaffold(
-              title: "Controle da Fila",
-              body: Column(
+            data = data.where(filterFunction).toList();
+
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05),
+              child: Column(
                 children: [
                   Flexible(
                     flex: 4,
                     child: Padding(
-                      padding: const EdgeInsets.all(64.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 48),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -44,6 +149,7 @@ class QueueControlPage extends ConsumerWidget {
                                 QueueNumberInfo(
                                   currentQueueNumber: currentQueueNumber,
                                 ),
+                                const QueueHistoryPairButton(),
                               ],
                             ),
                           ),
@@ -64,7 +170,7 @@ class QueueControlPage extends ConsumerWidget {
                       color: theme.primaryColor,
                       child: Center(
                         child: Text(
-                          "Histórico",
+                          ref.watch(showHistoryState) ? "Histórico" : "Fila",
                           style: theme.textTheme.button,
                         ),
                       ),
@@ -74,9 +180,14 @@ class QueueControlPage extends ConsumerWidget {
                     flex: 5,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: QueueNumberHistoric(
-                        queueNumberList: ref.read(queueNumberVM).getQueueNumberHistoric(data),
-                      ),
+                      child: ref.watch(showHistoryState)
+                          ? QueueNumberHistoric(
+                              queueNumberList: ref.read(queueNumberVM).getQueueNumberHistoric(data),
+                            )
+                          : CurrentQueue(
+                              queueNumberList:
+                                  ref.read(queueNumberVM).getQueueNumberRemaining(data),
+                            ),
                     ),
                   )
                 ],

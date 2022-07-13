@@ -6,3 +6,5 @@ final queueNumbersProvider = StreamProvider<List<QueueNumber>>((ref) {
   ref.read(queueNumberRepository).getCurrentQueueNumbers(VisitPurpose.appointment);
   return ref.read(queueNumberRepository).stream;
 });
+
+final showHistoryState = StateProvider<bool>((ref) => true);

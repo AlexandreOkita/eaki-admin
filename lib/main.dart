@@ -1,5 +1,6 @@
 import 'package:eaki_admin/firebase_options.dart';
 import 'package:eaki_admin/view/pages/queue_control_page.dart';
+import 'package:eaki_admin/view/pages/queue_tv_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,7 +69,11 @@ class EakiAdminMainWidget extends StatelessWidget {
           ),
         ),
       ),
-      home: const QueueControlPage(),
+      routes: {
+        "/": (context) => const QueueControlPage(),
+        "/exhibition": (context) => const QueueTVPage(),
+      },
+      initialRoute: "/",
     );
   }
 }

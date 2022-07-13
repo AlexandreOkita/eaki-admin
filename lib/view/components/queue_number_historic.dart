@@ -16,31 +16,47 @@ class QueueNumberHistoric extends ConsumerWidget {
               color: theme.primaryColor.withOpacity(0.25),
               height: 64,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    reversedQueueNumberList[index].hcNumber ?? "-",
-                    style: theme.textTheme.bodyText1,
+                  Expanded(
+                    child: Text(
+                      reversedQueueNumberList[index].hcNumber ?? "-",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyText1,
+                    ),
                   ),
-                  Text(
-                    reversedQueueNumberList[index].name ?? "-",
-                    style: theme.textTheme.bodyText1,
+                  Expanded(
+                    child: Text(
+                      reversedQueueNumberList[index].name ?? "-",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyText1,
+                    ),
                   ),
-                  Text(
-                    reversedQueueNumberList[index].number.toString(),
-                    style: theme.textTheme.bodyText1,
+                  Expanded(
+                    child: Text(
+                      reversedQueueNumberList[index].number.toString(),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyText1,
+                    ),
                   ),
-                  Text(
-                    reversedQueueNumberList[index].visitPurpose.name.toUpperCase(),
-                    style: theme.textTheme.bodyText1,
+                  Expanded(
+                    child: Text(
+                      reversedQueueNumberList[index].visitPurpose.name.toUpperCase(),
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyText1,
+                    ),
                   ),
-                  ElevatedButton(
-                      onPressed: () =>
-                          ref.read(queueNumberVM).recallQueueNumber(reversedQueueNumberList[index]),
-                      child: Text(
-                        "Rechamar",
-                        style: theme.textTheme.button,
-                      ))
+                  Expanded(
+                    child: Center(
+                      child: ElevatedButton(
+                          onPressed: () => ref
+                              .read(queueNumberVM)
+                              .recallQueueNumber(reversedQueueNumberList[index]),
+                          child: Text(
+                            "Rechamar",
+                            style: theme.textTheme.button,
+                          )),
+                    ),
+                  )
                 ],
               ),
             )),
