@@ -1,10 +1,12 @@
+// ignore_for_file: avoid_web_libraries_in_flutter
+
 import 'package:eaki_admin/view/components/current_queue.dart';
 import 'package:eaki_admin/view/components/queue_history_pair_button.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// ignore: avoid_web_libraries_in_flutter
 import 'dart:js' as js;
+import 'dart:html' as html;
 import 'package:eaki_admin/models/entities/queue_number.dart';
 import 'package:eaki_admin/providers/queue_number_provider.dart';
 import 'package:eaki_admin/view/components/current_queue_number.dart';
@@ -58,8 +60,9 @@ class _QueueControlPageState extends ConsumerState<QueueControlPage> {
         priority: 3,
       ),
       SideMenuItem(
-        onTap: () =>
-            js.context.callMethod('open', ['https://eaki-admin-unicamp.web.app/#/exhibition']),
+        onTap: () {
+          html.window.open('https://eaki-admin-unicamp.web.app/#/exhibition', 'new tab');
+        },
         title: "Modo Exibição",
         icon: const Icon(Icons.tv),
         priority: 4,
