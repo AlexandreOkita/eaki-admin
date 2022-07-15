@@ -1,4 +1,5 @@
 import 'package:eaki_admin/firebase_options.dart';
+import 'package:eaki_admin/view/pages/login_page.dart';
 import 'package:eaki_admin/view/pages/queue_control_page.dart';
 import 'package:eaki_admin/view/pages/queue_tv_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -72,8 +73,9 @@ class EakiAdminMainWidget extends StatelessWidget {
       routes: {
         "/": (context) => const QueueControlPage(),
         "/exhibition": (context) => const QueueTVPage(),
+        "/login": (context) => const LoginPage()
       },
-      initialRoute: "/",
+      initialRoute: "/login",
     );
   }
 }
