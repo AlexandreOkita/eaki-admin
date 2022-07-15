@@ -18,6 +18,7 @@ class QueueNumberVM {
     final dateCalledList = list.where((number) => number.dateCalled != null).toList();
     if (dateCalledList.isEmpty) return null;
     dateCalledList.sort((a, b) => a.dateCalled!.compareTo(b.dateCalled!));
+    print(dateCalledList.map((e) => [e.number, e.dateCalled]));
     return dateCalledList.last;
   }
 

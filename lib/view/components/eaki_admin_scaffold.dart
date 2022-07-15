@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class EakiAdminScaffold extends ConsumerWidget {
   final Widget body;
   final String title;
-  const EakiAdminScaffold({required this.title, required this.body, Key? key}) : super(key: key);
+  final bool implyLeading;
+  const EakiAdminScaffold({required this.title, required this.body, this.implyLeading = true,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -12,6 +13,7 @@ class EakiAdminScaffold extends ConsumerWidget {
     final screen = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: implyLeading,
           title: Text(title),
           backgroundColor: theme.primaryColor,
         ),

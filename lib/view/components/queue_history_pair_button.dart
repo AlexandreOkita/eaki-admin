@@ -8,8 +8,10 @@ class QueueHistoryPairButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
     return ToggleButtons(
       isSelected: [!ref.watch(showHistoryState), ref.watch(showHistoryState)],
+      selectedColor: Colors.amber,
       borderRadius: BorderRadius.circular(10),
       onPressed: (index) => {
         if (index == 0)
@@ -18,13 +20,19 @@ class QueueHistoryPairButton extends ConsumerWidget {
           {ref.read(showHistoryState.notifier).state = true}
       },
       children: [
-        Text(
-          "Fila",
-          style: textTheme.headline6,
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          child: Text(
+            "Fila",
+            style: textTheme.headline6,
+          ),
         ),
-        Text(
-          "Historico",
-          style: textTheme.headline6,
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 5),
+          child: Text(
+            "Histórico",
+            style: textTheme.headline6,
+          ),
         ),
       ],
     );

@@ -71,11 +71,10 @@ class EakiAdminMainWidget extends StatelessWidget {
         ),
       ),
       routes: {
-        "/": (context) => const QueueControlPage(),
+        "/": (context) => const LoginPage(),
         "/exhibition": (context) => const QueueTVPage(),
-        "/login": (context) => const LoginPage()
       },
-      initialRoute: "/login",
+      initialRoute: "/",
     );
   }
 }

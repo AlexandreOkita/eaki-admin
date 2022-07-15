@@ -3,7 +3,8 @@ import 'package:eaki_admin/view/components/queue_history_pair_button.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js;
 import 'package:eaki_admin/models/entities/queue_number.dart';
 import 'package:eaki_admin/providers/queue_number_provider.dart';
 import 'package:eaki_admin/view/components/current_queue_number.dart';
@@ -27,47 +28,42 @@ class _QueueControlPageState extends ConsumerState<QueueControlPage> {
   Widget build(BuildContext context) {
     final List<SideMenuItem> items = [
       SideMenuItem(
-          onTap: () {
-            page.jumpToPage(0);
-          },
-          title: "Todas as Senhas",
-          icon: const Icon(Icons.all_inbox),
-          priority: 0),
+        onTap: () {
+          page.jumpToPage(0);
+        },
+        title: "Todas as Senhas",
+        icon: const Icon(Icons.all_inbox),
+        priority: 0,
+      ),
       SideMenuItem(
-          onTap: () {
-            page.jumpToPage(1);
-          },
-          title: "Consulta Agendada",
-          icon: const Icon(Icons.all_inbox),
-          priority: 1),
+        onTap: () {
+          page.jumpToPage(1);
+        },
+        title: "Consulta Agendada",
+        icon: const Icon(Icons.calendar_today),
+        priority: 1,
+      ),
       SideMenuItem(
-          onTap: () {
-            page.jumpToPage(2);
-          },
-          title: "Consulta de Retorno",
-          icon: const Icon(Icons.all_inbox),
-          priority: 2),
+        onTap: () {
+          page.jumpToPage(2);
+        },
+        title: "Procedimentos",
+        icon: const Icon(Icons.healing),
+        priority: 2,
+      ),
       SideMenuItem(
-          onTap: () {
-            page.jumpToPage(3);
-          },
-          title: "Encaixe com Email",
-          icon: const Icon(Icons.all_inbox),
-          priority: 3),
+        onTap: () => js.context.callMethod('open', ['https://google.com/']),
+        title: "Analisar Dados",
+        icon: const Icon(Icons.data_array),
+        priority: 3,
+      ),
       SideMenuItem(
-          onTap: () {
-            page.jumpToPage(4);
-          },
-          title: "Procedimento",
-          icon: const Icon(Icons.all_inbox),
-          priority: 4),
-      SideMenuItem(
-          onTap: () {
-            page.jumpToPage(5);
-          },
-          title: "Senhas Chamadas",
-          icon: const Icon(Icons.all_inbox),
-          priority: 5),
+        onTap: () =>
+            js.context.callMethod('open', ['https://eaki-admin-unicamp.web.app/#/exhibition']),
+        title: "Modo Exibição",
+        icon: const Icon(Icons.tv),
+        priority: 4,
+      ),
     ];
 
     return EakiAdminScaffold(

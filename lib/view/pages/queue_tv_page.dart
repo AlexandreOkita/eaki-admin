@@ -18,6 +18,7 @@ class QueueTVPage extends ConsumerWidget {
         data: (data) {
           final currentQueueNumber = ref.read(queueNumberVM).getCurrentQueueNumber(data);
           return EakiAdminScaffold(
+            implyLeading: false,
             title: "Senha Atual",
             body: Center(
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [

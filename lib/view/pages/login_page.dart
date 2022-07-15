@@ -4,6 +4,7 @@ import 'package:eaki_admin/repositories/id_repository.dart';
 import 'package:eaki_admin/view/components/eaki_admin_scaffold.dart';
 import 'package:eaki_admin/view/components/error_screen.dart';
 import 'package:eaki_admin/view/components/loading_screen.dart';
+import 'package:eaki_admin/view/pages/queue_control_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,18 +14,14 @@ class LoginPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (ref.watch(isLoggedState)) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
-      });
+      return const QueueControlPage();
     }
     return ref.watch(checkTokenProvider).when(
           error: (e, st) => ErrorScreen(st, e),
           loading: () => const LoadingScreen(),
           data: (tokenValid) {
             if (tokenValid) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                ref.read(isLoggedState.notifier).state = true;
-              });
+              return const QueueControlPage();
             }
             return const LoginScreen();
           },
@@ -49,6 +46,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final textTheme = Theme.of(context).textTheme;
 
     return EakiAdminScaffold(
+      implyLeading: true,
       title: "Login",
       body: Padding(
         padding:
