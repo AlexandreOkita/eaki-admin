@@ -52,7 +52,7 @@ class _QueueControlPageState extends ConsumerState<QueueControlPage> {
         priority: 2,
       ),
       SideMenuItem(
-        onTap: () => js.context.callMethod('open', ['https://google.com/']),
+        onTap: () => js.context.callMethod('open', ['https://eaki-data.web.app/']),
         title: "Analisar Dados",
         icon: const Icon(Icons.data_array),
         priority: 3,
@@ -65,7 +65,6 @@ class _QueueControlPageState extends ConsumerState<QueueControlPage> {
         priority: 4,
       ),
     ];
-
     return EakiAdminScaffold(
         title: "Controle da Fila",
         body: Padding(

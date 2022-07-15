@@ -48,9 +48,11 @@ class QueueNumberHistoric extends ConsumerWidget {
                   Expanded(
                     child: Center(
                       child: ElevatedButton(
-                          onPressed: () => ref
-                              .read(queueNumberVM)
-                              .recallQueueNumber(reversedQueueNumberList[index]),
+                          onPressed: () {
+                            ref
+                                .read(queueNumberVM)
+                                .recallQueueNumber(reversedQueueNumberList[index]);
+                          },
                           child: Text(
                             "Rechamar",
                             style: theme.textTheme.button,
