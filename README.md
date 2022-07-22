@@ -1,16 +1,23 @@
 # eaki_admin
 
-A new Flutter project.
+O Eaki Admin é uma plataforma utilizada para gerenciar o sistema de filas do HC, ele recebe e atualiza os dados do aplicativo [Eaki](https://github.com/AlexandreOkita/eaki). Atualmente ele possui as seguintes funcionalidades:
 
-## Getting Started
+- Chamar a próxima senha serial
+- Chamar uma senha específica
+- Rechamar uma senha
+- Entrar no modo exibição de senha
+- Analisar dados referentes a fila
 
-This project is a starting point for a Flutter application.
+![image](https://user-images.githubusercontent.com/37855969/180458369-327dc34a-ccc7-4ca2-93db-0db5bcc4fab8.png)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Como executar
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Instale o flutter em sua máquina: <https://docs.flutter.dev/get-started/install>
+
+Digite os seguintes comandos no terminal:
+
+- flutter pub get
+- flutter run
+
+Também é possível ver o aplicativo sendo executado no site: <https://eaki-admin-unicamp.web.app>
